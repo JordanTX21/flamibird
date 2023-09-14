@@ -2,6 +2,8 @@ class Game{
     constructor(){
         this.events = new Events()
         this.utils = new Utils()
+        this.status = false
+        this.is_start_pipes = false
     }
     start(){
         this.stage = new Stage()
@@ -10,7 +12,7 @@ class Game{
         this.status = true
         this.points = 0
         this.eventsListener()
-        this.startPipes()
+        if(!this.is_start_pipes)this.startPipes()
         this.draw()
     }
     addPoints(){
@@ -41,6 +43,7 @@ class Game{
         this.drawBird()
         this.drawPipes()
         this.checkCollisions()
+        this.checkDestroyPipes()
         requestAnimationFrame(() => this.draw());
     }
     drawPoints(){
@@ -55,10 +58,10 @@ class Game{
         }
     }
     async startPipes(){
+        this.is_start_pipes = true
         await this.utils.sleep(1500)
         this.createPipe()
         this.startPipes()
-        this.checkDestroyPipes()
     }
     createPipe(){
         const heightUp = this.utils.random(0,this.stage.height/2)
