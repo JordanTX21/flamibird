@@ -5,7 +5,7 @@ class Point{
         for(let i=0;i<10;i++){
             const img = new Image()
             img.src = `src/assets/sprites/${i}.png`
-            this.points_arr.push(img)
+            this.points.push(img)
         }
         this.image = this.points[0]
     }
@@ -17,7 +17,7 @@ class Point{
         this.val++
     }
     draw(stage){
-        const image = this.points_arr[this.val]
+        const image = this.points[this.val]
         stage.drawImage(image,50,50)
     }
 }

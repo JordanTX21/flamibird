@@ -3,8 +3,8 @@ class Bird{
         this.x = 50
         this.y = 300
         this.dy = 0
-        this.width = 50
-        this.heigth = 50
+        this.width = 34
+        this.heigth = 24
         this.r = this.width/2
         this.gravity = 0.5;
         this.speed = 3;
@@ -16,8 +16,8 @@ class Bird{
         this.image.onload = () => stage.drawImage(this.image,this.x,this.y,this.width,this.heigth)
     }
     draw(stage){
-        //stage.drawRect(this.x,this.y,this.width,this.heigth,this.color)
         stage.drawImage(this.image,this.x,this.y,this.width,this.heigth)
+        stage.drawRect(this.x,this.y,this.width,this.heigth,this.color)
         this.fall()
     }
     fall(){

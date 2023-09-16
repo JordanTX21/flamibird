@@ -5,33 +5,21 @@ class Game{
         this.stage = new Stage()
         this.point = new Point()
         this.bird = new Bird(this.stage)
-        this.points = 0
         this.status = false
         this.is_start_pipes = false
         this.eventsListener()
         this.bird.start(this.stage)
-        this.points_arr = []
-        this.fillImages()
         this.point.start(this.stage)
-    }
-    fillImages(){
-        for(let i=0;i<10;i++){
-            const img = new Image()
-            img.src = `src/assets/sprites/${i}.png`
-            this.points_arr.push(img)
-        }
     }
     start(){
         this.stage = new Stage()
         this.bird = new Bird()
         this.pipes = []
         this.status = true
-        this.points = 0
+        this.bird.start(this.stage)
+        this.point.start(this.stage)
         if(!this.is_start_pipes)this.startPipes()
         this.draw()
-    }
-    addPoints(){
-        this.points += 1
     }
     eventsListener(){
         const _this = this
@@ -62,18 +50,11 @@ class Game{
         this.checkDestroyPipes()
         requestAnimationFrame(() => this.draw());
     }
-    startPoints(){
-        //this.stage.drawText(`Puntos: ${this.points}`,50,50)
-        const image = this.points_arr[this.points]
-        image.onload = () => this.stage.drawImage(image,50,50)
-    }
-    drawPoints(){
-        //this.stage.drawText(`Puntos: ${this.points}`,50,50)
-        const image = this.points_arr[this.points]
-        this.stage.drawImage(image,50,50)
-    }
     drawBird(){
         this.bird.draw(this.stage)
+    }
+    drawPoints(){
+        this.point.draw(this.stage)
     }
     drawPipes(){
         for(const pipe of this.pipes){
@@ -84,15 +65,18 @@ class Game{
         if(!this.status) return;
         this.is_start_pipes = true
         await this.utils.sleep(1500)
-        this.createPipe()
+        this.createPipes()
         this.startPipes()
     }
-    createPipe(){
-        const heightUp = this.utils.random(0,this.stage.height/2)
-        const pipeUp = new Pipe(this.stage.width,0,heightUp)
+    createPipes(){
+        const random = this.utils.random(0,320)
+        const pipeUp = new Pipe(this.stage.width,0-random,320)
+        pipeUp.direction = -1
+        pipeUp.start(this.stage)
         this.pipes.push(pipeUp)
         
         const pipeDown = new Pipe(this.stage.width,heightUp+150,this.stage.height-(heightUp+150))
+        pipeDown.start(this.stage)
         pipeDown.increase_score = 1
         this.pipes.push(pipeDown)
     }
@@ -113,7 +97,7 @@ class Game{
                 this.lose()
             }
             if(this.utils.checkXCollision(this.bird,pipe) && pipe.increase_score){
-                this.addPoints()
+                this.point.addPoint()
             }
         }
     }
