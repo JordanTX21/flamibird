@@ -1,5 +1,5 @@
 class Bird{
-    constructor(){
+    constructor(stage = null){
         this.x = 50
         this.y = 300
         this.dy = 0
@@ -9,9 +9,15 @@ class Bird{
         this.gravity = 0.5;
         this.speed = 3;
         this.color = "#ebeb34"
+        this.image = new Image()
+        this.image.src = "src/assets/sprites/yellowbird-midflap.png"
+    }
+    start(stage){
+        this.image.onload = () => stage.drawImage(this.image,this.x,this.y,this.width,this.heigth)
     }
     draw(stage){
-        stage.drawRect(this.x,this.y,this.width,this.heigth,this.color)
+        //stage.drawRect(this.x,this.y,this.width,this.heigth,this.color)
+        stage.drawImage(this.image,this.x,this.y,this.width,this.heigth)
         this.fall()
     }
     fall(){

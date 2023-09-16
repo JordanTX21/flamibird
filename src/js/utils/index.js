@@ -6,7 +6,7 @@ class Utils {
     random(min, max) {
         return Math.random() * (max - min) + min;
     }
-    checkCollision(r1,r2) {
+    checkCollision(r1, r2) {
         const factorx1 = 10
         const factory1 = 10
         const factory2 = 20
@@ -18,8 +18,8 @@ class Utils {
         }
         return false;
     }
-    checkXCollision(r1,r2) {
-        if (r2.x + r2.width < r1.x && r2.x + r2.width + r2.speed >= r1.x){
+    checkXCollision(r1, r2) {
+        if (r2.x + r2.width < r1.x && r2.x + r2.width + r2.speed >= r1.x) {
             return true;
         }
         return false;

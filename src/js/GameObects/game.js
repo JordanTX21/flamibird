@@ -2,8 +2,24 @@ class Game{
     constructor(){
         this.events = new Events()
         this.utils = new Utils()
+        this.stage = new Stage()
+        this.point = new Point()
+        this.bird = new Bird(this.stage)
+        this.points = 0
         this.status = false
         this.is_start_pipes = false
+        this.eventsListener()
+        this.bird.start(this.stage)
+        this.points_arr = []
+        this.fillImages()
+        this.point.start(this.stage)
+    }
+    fillImages(){
+        for(let i=0;i<10;i++){
+            const img = new Image()
+            img.src = `src/assets/sprites/${i}.png`
+            this.points_arr.push(img)
+        }
     }
     start(){
         this.stage = new Stage()
@@ -11,7 +27,6 @@ class Game{
         this.pipes = []
         this.status = true
         this.points = 0
-        this.eventsListener()
         if(!this.is_start_pipes)this.startPipes()
         this.draw()
     }
@@ -22,6 +37,7 @@ class Game{
         const _this = this
         this.stage.element.addEventListener('click',() => {
             if(_this.status == false){
+                _this.is_start_pipes = false
                 return _this.start()
             }
             _this.bird.up()
@@ -39,15 +55,22 @@ class Game{
     draw(){
         if(!this.status)return;
         this.stage.clear()
-        this.drawPoints()
         this.drawBird()
         this.drawPipes()
+        this.drawPoints()
         this.checkCollisions()
         this.checkDestroyPipes()
         requestAnimationFrame(() => this.draw());
     }
+    startPoints(){
+        //this.stage.drawText(`Puntos: ${this.points}`,50,50)
+        const image = this.points_arr[this.points]
+        image.onload = () => this.stage.drawImage(image,50,50)
+    }
     drawPoints(){
-        this.stage.drawText(`Puntos: ${this.points}`,50,50)
+        //this.stage.drawText(`Puntos: ${this.points}`,50,50)
+        const image = this.points_arr[this.points]
+        this.stage.drawImage(image,50,50)
     }
     drawBird(){
         this.bird.draw(this.stage)
@@ -58,6 +81,7 @@ class Game{
         }
     }
     async startPipes(){
+        if(!this.status) return;
         this.is_start_pipes = true
         await this.utils.sleep(1500)
         this.createPipe()
@@ -95,6 +119,7 @@ class Game{
     }
     lose(){
         this.status = false
+        this.stage.drawDieScreen()
         // alert("YA PERDISTE PE CAUSITA")
         // document.location.reload()
     }
