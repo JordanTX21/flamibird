@@ -3,19 +3,16 @@
     margin: 0;
 }
 
-body {
-    height: 100vh;
-    background-color: #263268;
-}
-
 main{
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #263268;
 }
 
 canvas {
+    height: 100vh;
     background: #eee;
     display: block;
 }
