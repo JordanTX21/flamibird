@@ -3,8 +3,19 @@
     margin: 0;
 }
 
+body {
+    height: 100vh;
+    background-color: #263268;
+}
+
+main{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 canvas {
     background: #eee;
     display: block;
-    margin: 0 auto;
 }

@@ -1,17 +1,24 @@
 class Stage{
-    constructor(){
+    constructor({g}){
+        this.game = g;
         this.element = document.getElementById("stage");
         this.width = this.element.width;
         this.height = this.element.height;
+        this.ground = this.height - 112
         this.ctx = this.element.getContext("2d");
-        this.ctx.globalCompositeOperation = "destination-over";
+        this.ctx.globalCompositeOperation = "source-over";
         this.utils = new Utils()
-        this.images = {
-
-        }
+        this.images = {}
+        this.basex = 0
+        this.bgx = 0
     }
     clear(){
-        this.ctx.clearRect(0, 0, this.element.width, this.element.height);
+        this.ctx.clearRect(0, 0, this.width, this.height);
+    }
+    start(){
+    }
+    drawMessage(){
+        this.drawImageCenter(this.game.images.message)
     }
     drawRect(x,y,w,h,c) {
         this.ctx.beginPath();
@@ -26,20 +33,12 @@ class Stage{
         this.ctx.fillText(text, x, y);
     }
     drawDieScreen(){
-        this.drawImageCenter("src/assets/sprites/gameover.png")
+        this.drawImageCenter(this.game.images.gameover)
     }
     drawImage(image,x,y,w=null,h=null) {
         this.ctx.drawImage(image,x,y)
     }
-    drawImageLink(src,x,y,w=null,h=null) {
-        const image = new Image();
-        image.src = src;
-        image.onload = () => this.ctx.drawImage(image,x,y)
-    }
-    drawImageCenter(src) {
-        this.ctx.globalCompositeOperation = "source-over";
-        const image = new Image();
-        image.src = src;
-        image.onload = () => this.ctx.drawImage(image, this.element.width / 2 - image.width / 2, this.element.height / 2 - image.height / 2)
+    drawImageCenter(image) {
+        this.ctx.drawImage(image, this.width / 2 - image.width / 2, this.height / 2 - image.height / 2)
     }
 }

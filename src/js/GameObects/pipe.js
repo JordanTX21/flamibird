@@ -1,25 +1,23 @@
 class Pipe{
-    constructor(x,y,h){
+    constructor({x,y,g,d=1}){
+        this.game = g
+        this.stage = this.game.stage
         this.x = x
         this.y = y
         this.width = 52
-        this.heigth = 320
+        this.height = 320
         this.color = "#34eb4c"
         this.speed = 3;
-        this.increase_score = 0
-        this.direction = 1
-        this.image = new Image()
-        this.image.src = "src/assets/sprites/pipe-green.png"
+        this.direction = d
+        this.image = d===1? this.game.images["pipe-green-bottom"]:this.game.images["pipe-green-top"]
     }
-    start(stage){
-        this.image.onload = () => stage.drawImage(this.image,this.x,this.y,this.width,this.heigth)
+    start(){
+        // this.stage.drawImage(this.image,this.x,this.y,this.width,this.height)
     }
-    draw(stage){
-        // stage.ctx.translate(0, 2*this.height);
-        // stage.ctx.scale(1,this.direction);
-        stage.drawImage(this.image,this.x,this.y,this.width,this.heigth)
-        stage.drawRect(this.x,this.y,this.width,this.heigth,this.color)
-        this.move()
+    draw(){
+        // this.stage.drawRect(this.x,this.y,this.width,this.height,this.color)
+        this.stage.drawImage(this.image,this.x,this.y,this.width,this.height)
+        // this.move()
     }
     move(){
         this.x-=this.speed
