@@ -7,7 +7,7 @@ class Pipe{
         this.width = 52
         this.height = 320
         this.color = "#34eb4c"
-        this.speed = 3;
+        this.speed = this.game.speed
         this.direction = d
         this.image = d===1? this.game.images["pipe-green-bottom"]:this.game.images["pipe-green-top"]
     }

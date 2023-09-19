@@ -10,8 +10,8 @@ class Utils {
         const factorx1 = 10
         const factory1 = 10
         const factory2 = 20
-        if (r1.x + r1.width >= r2.x + factorx1 &&     // r1 right edge past r2 left
-            r1.x <= r2.x + r2.width &&       // r1 left edge past r2 right
+        if (r1.x + r1.width >= r2.x + factorx1 &&       // r1 right edge past r2 left
+            r1.x <= r2.x + r2.width &&                  // r1 left edge past r2 right
             r1.y + r1.height >= r2.y + factory1 &&       // r1 top edge past r2 bottom
             r1.y + factory2 <= r2.y + r2.height) {       // r1 bottom edge past r2 top
             return true;
@@ -19,7 +19,7 @@ class Utils {
         return false;
     }
     checkXCollision(r1, r2) {
-        if (r2.x + r2.width < r1.x && r2.x + r2.width + r2.speed >= r1.x) {
+        if (r2.x < r1.x && r2.x + r2.speed >= r1.x) {
             return true;
         }
         return false;

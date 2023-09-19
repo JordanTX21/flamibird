@@ -6,12 +6,11 @@ class Ground{
         this.height = 112
         this.x = x
         this.y = y
-        this.speed = 3
+        this.speed = this.game.speed
         this.image = this.game.images["base"]
     }
     start(){
         this.y = this.stage.height-this.height
-        this.speed = 3
     }
     draw(){
         this.stage.drawImage(this.image,this.x,this.y,this.width,this.height)

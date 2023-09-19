@@ -1,3 +1,6 @@
-const game = new Game();
 
-//game.start();
+window.onload = () => {
+    const game = new Game();
+
+    //game.start();
+}

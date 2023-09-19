@@ -7,19 +7,23 @@ class Game{
         this.eventsListener()
         this.utils = new Utils()
         this.images = {}
+        this.audios = {}
         this.pipes = []
         this.backgrounds = []
         this.grounds = []
         this.frame = 0.2
         this.status = 'init'
+        this.speed = 3
+        this.last = 0
         this.stage = new Stage({g:this})
+        this.loadAudios()
         await this.loadImages()
         this.point = new Point({g:this})
         this.bird = new Bird({g:this})
         this.stage.start()
         this.bird.start()
         this.point.start()
-        this.draw()
+        requestAnimationFrame((timestamp) => this.draw(timestamp));
     }
     checkRestart(){
         if(this.status == 'gameover'){
@@ -54,6 +58,18 @@ class Game{
             this.images[image] = await this.utils.loadImage(`src/resources/sprites/${image}.png`)
         }
     }
+    loadAudios(){
+        const audios = [
+            'die',
+            'hit',
+            'point',
+            'swoosh',
+            'wing',
+        ];
+        for(const audio of audios){
+            this.audios[audio] = new Audio(`src/resources/audio/${audio}.wav`)
+        }
+    }
     start(){
         this.pipes = []
         this.bird.start()
@@ -71,12 +87,12 @@ class Game{
         this.stage.drawMessage()
         this.status = 'setup'
     }
-    draw(){
+    draw(timestamp){
         this.stage.clear()
         this.drawBrackgrounds()
         this.drawPipes()
         this.drawGrounds()
-        this.bird.draw(this.timer)
+        this.bird.draw()
         this.point.draw()
         if(this.status==='game'){
             this.bird.fall()
@@ -101,7 +117,7 @@ class Game{
         }
         this.checkDestroyGround()
         this.checkDestroyBackground()
-        requestAnimationFrame(() => this.draw());
+        requestAnimationFrame((timestamp) => this.draw(timestamp));
     }
     drawPipes(){
         for(const pipe of this.pipes){
@@ -187,6 +203,8 @@ class Game{
         }
     }
     gameover(){
+        this.audios['hit'].play()
+        this.audios['die'].play()
         this.status = 'gameover'
     }
 }

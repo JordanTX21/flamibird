@@ -37,6 +37,9 @@ class Bird{
         this.y = this.y + this.dy
     }
     up(){
+        this.game.audios['wing'].pause();
+        this.game.audios['wing'].currentTime = 0;
+        this.game.audios['wing'].play()
         this.dy = -7.6
     }
 }
