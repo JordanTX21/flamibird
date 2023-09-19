@@ -51,7 +51,7 @@ class Game{
             '0','1','2','3','4','5','6','7','8','9',
         ];
         for(const image of images){
-            this.images[image] = await this.utils.loadImage(`src/assets/sprites/${image}.png`)
+            this.images[image] = await this.utils.loadImage(`src/resources/sprites/${image}.png`)
         }
     }
     start(){
